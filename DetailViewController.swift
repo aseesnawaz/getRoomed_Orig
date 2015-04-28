@@ -26,7 +26,10 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var aboutMeL: UILabel!
     
     var Id = Int();
+    var busPhone: Int = 0;
+    var busPhonetext: String = ""
     
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         

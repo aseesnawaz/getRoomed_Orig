@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import Parse
 
-class FourthView: UIViewController {
+class FourthView: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var about: UITextView!
     
@@ -18,7 +18,13 @@ class FourthView: UIViewController {
 
     override func viewDidLoad() {
          super.viewDidLoad()
+
 }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+    }
+
     @IBAction func nextPress(sender: AnyObject) {
         self.user.aboutMe = about.text
     }

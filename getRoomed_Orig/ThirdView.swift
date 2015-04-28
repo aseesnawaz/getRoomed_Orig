@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ThirdView: UIViewController {
+class ThirdView: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var cellphone: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -18,7 +18,22 @@ class ThirdView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        cellphone.delegate = self
+        email.delegate = self
+        facebook.delegate = self
+        
     }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        cellphone.resignFirstResponder()
+        email.resignFirstResponder()
+        facebook.resignFirstResponder()
+        
+        return true
+    }
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+    }
+
 
     @IBAction func nextPress(sender: AnyObject) {
         self.user.cellphone = cellphone.text

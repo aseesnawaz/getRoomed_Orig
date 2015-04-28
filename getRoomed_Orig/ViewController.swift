@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var college: UITextField!
@@ -20,12 +20,45 @@ class ViewController: UIViewController {
 
     let user = User.sharedInstance
 
-   
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
+        
+        name.delegate = self
+        college.delegate = self
+        major.delegate = self
+        graduationYear.delegate = self
+        ethnicity.delegate = self
+        languagePreferred.delegate = self
+        age.delegate = self
+        
+    }
+    func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y -= 150
     }
     
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y += 150
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        name.resignFirstResponder()
+        college.resignFirstResponder()
+        major.resignFirstResponder()
+        graduationYear.resignFirstResponder()
+        ethnicity.resignFirstResponder()
+        languagePreferred.resignFirstResponder()
+        age.resignFirstResponder()
+        
+        return true
+    }
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+        
+    }
+
     @IBAction func nextPress(sender: AnyObject) {
         self.user.name = name.text
         self.user.college = college.text
